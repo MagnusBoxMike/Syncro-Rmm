@@ -1,0 +1,30 @@
+Import-Module $env:SyncroModule
+
+# --- EDIT SERVER INFO BELOW ---
+# --- Need help? Email support@magnusbox.com ---
+
+$backupname = "Backup Name"
+$server = "Server URL"
+
+# --- DO NOT MODIFY ANYTHING BELOW THIS LINE ---
+
+# Check to see if MagnusBox is installed already
+if (-Not (Get-Item "C:\Program Files\$backupname")) { 
+
+# Creates Temp Directory if not already created
+if (-Not (Get-Item "C:\Temp")) { New-Item -ItemType dir "C:\Temp" }
+
+# Downloads installer 
+Invoke-WebRequest "https://${server}/dl/6" -OutFile "c:\temp\install_backup.exe"
+
+# Runs installer from Platform Variable
+Start-Process -NoNewWindow -FilePath "c:\temp\install_backup.exe" -ArgumentList "/CONFIGURE=${mbu}:${mbp}"
+
+Start-Sleep -s 10
+
+# Removes Desktop Icon if its not wanted
+Remove-Item 'C:\Users\*\Desktop\$backupname'
+
+} else {
+Write-Error "Backup Software is already installed."
+}
