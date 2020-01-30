@@ -9,5 +9,4 @@ $server= "Server"
 
 # --- DO NOT MODIFY ANYTHING BELOW THIS LINE ---
 
-
 Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/add-user" -UseBasicParsing -Method POST -Body @{Username="${username}"; AuthType="Password"; Password="${password}"; TargetUser=$mbu; TargetPassword=$mbp; StoreRecoveryCode="1"} | select Content
