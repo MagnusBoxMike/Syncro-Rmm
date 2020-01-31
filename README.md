@@ -30,3 +30,21 @@ Now you can create the username and passwords for the Magnus Box platform in Syn
 3. Under custom fields, click edit
 4. Inpute a secure username and password in the "Magnus Box Password" & "Magnus Box Username" fields 
 5. Repeat this process for every customer that you would like to add to Magnus Box. 
+
+# Scripts
+
+Script Name: Create User
+Usage:
+Instructions:
+
+Script Name: Delete User
+Usage:
+Instructions:
+
+Script Name: Silent Install
+Usage:
+Instructions:
+
+Script Name: Silent Uninstall
+Usage:
+Instructions:
