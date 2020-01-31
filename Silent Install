@@ -20,7 +20,11 @@ Invoke-WebRequest "https://${server}/dl/6" -OutFile "c:\temp\install_backup.exe"
 # Runs installer from Platform Variable
 Start-Process -NoNewWindow -FilePath "c:\temp\install_backup.exe" -ArgumentList "/CONFIGURE=${mbu}:${mbp}"
 
-Start-Sleep -s 10
+# Pause the script for 60 seconds to allow the software to install
+Start-Sleep -s 60
+
+# Remove the icon from the desktop
+Remove-Item "C:\Users\*\Desktop\$backupname.lnk"
 
 } else {
 Write-Error "Backup Software is already installed."
