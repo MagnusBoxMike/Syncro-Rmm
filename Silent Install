@@ -22,9 +22,6 @@ Start-Process -NoNewWindow -FilePath "c:\temp\install_backup.exe" -ArgumentList 
 
 Start-Sleep -s 10
 
-# Removes Desktop Icon if its not wanted
-Remove-Item 'C:\Users\*\Desktop\$backupname'
-
 } else {
 Write-Error "Backup Software is already installed."
 }
