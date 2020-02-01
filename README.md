@@ -31,6 +31,8 @@ Now you can create the username and passwords for the Magnus Box platform in Syn
 4. Inpute a secure username and password in the "Magnus Box Password" & "Magnus Box Username" fields 
 5. Repeat this process for every customer that you would like to add to Magnus Box. 
 
+You will also need a dedicated Magnus Box API account setup for Syncro. We will use this to run the scripts properly. To have a dedicated API account setup, please email support@magnusbox.com and request a Syncro API user account.
+
 # Scripts
 
 Script Name - Create User
