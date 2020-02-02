@@ -39,7 +39,7 @@ You will also need a dedicated Magnus Box API account setup for Syncro. You will
 
 <strong>Usage</strong> - This script is used to create a new client backup account on your Magnus Box server from within the Syncro RMM dashboard.
 
-<strong>Instructions</stronger>
+<strong>Instructions</strong>
 
 1. Login to your Syncro portal
 2. Go to Scripts
