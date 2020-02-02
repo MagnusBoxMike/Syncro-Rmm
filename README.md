@@ -12,7 +12,7 @@ Interested in Magnus Box. Visit www.magnusbox.com for more information.
 
 These scripts require the use of the custom customer fields in Syncro. 
 
-Here is how to set this up:
+<strong>Here is how to set this up:</strong>
 
 1. Login to your Syncro Portal
 2. Go to the admin tab
@@ -23,7 +23,7 @@ Here is how to set this up:
 7. Click on "New Field" again and this time type "Magnus Box Username" in the name field
 8. Select "Text Field" in field type and clik "Create Customer Field"
 
-Now you can create the username and passwords for the Magnus Box platform in Syncro.
+<strong>Now you can create the username and passwords for the Magnus Box platform in Syncro.</strong>
 
 1. Click on Customers
 2. Select a customer
@@ -35,11 +35,11 @@ You will also need a dedicated Magnus Box API account setup for Syncro. You will
 
 # Scripts
 
-Script Name - Create New User
+<strong>Script Name</strong> - Create New User
 
-Usage - This script is used to create a new client backup account on your Magnus Box server from within the Syncro RMM dashboard.
+<strong>Usage</strong> - This script is used to create a new client backup account on your Magnus Box server from within the Syncro RMM dashboard.
 
-Instructions
+<strong>Instructions</stronger>
 
 1. Login to your Syncro portal
 2. Go to Scripts
@@ -68,20 +68,20 @@ Instructions
 
 
 
-Script Name - Delete User
+<strong>Script Name</strong> - Delete User
 
-Usage
+<strong>Usage</strong>
 
-Instructions
+<strong>Instructions</strong>
 
-Script Name -Silent Install
+<strong>Script Name</strong> -Silent Install
 
-Usage
+<strong>Usage</strong>
 
-Instructions
+<strong>Instructions</strong>
 
-Script Name - Silent Uninstall
+<strong>Script Name</strong>- Silent Uninstall
 
-Usage
+<strong>Usage</strong>
 
-Instructions
+<strong>Instructions</strong>
