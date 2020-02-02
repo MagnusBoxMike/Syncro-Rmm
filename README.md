@@ -70,18 +70,24 @@ You will also need a dedicated Magnus Box API account setup for Syncro. You will
 
 <strong>Script Name</strong> - Delete User
 
-<strong>Usage</strong>
+<strong>Usage</strong> Coming Soon
 
-<strong>Instructions</strong>
+<strong>Instructions</strong> Coming Soon
 
 <strong>Script Name</strong> -Silent Install
 
-<strong>Usage</strong>
+<strong>Usage</strong> Coming Soon
 
-<strong>Instructions</strong>
+<strong>Instructions</strong> Coming Soon
 
 <strong>Script Name</strong>- Silent Uninstall
 
-<strong>Usage</strong>
+<strong>Usage</strong> Coming Soon
 
-<strong>Instructions</strong>
+<strong>Instructions</strong> Coming Soon
+
+<strong>Script Name</strong>- Remove Icon
+
+<strong>Usage</strong> Coming Soon
+
+<strong>Instructions</strong> Coming Soon
