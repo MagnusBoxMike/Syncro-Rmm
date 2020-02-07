@@ -59,7 +59,7 @@ You will also need a dedicated Magnus Box API account setup for Syncro. You will
 16. In the "Value" box, select "{{customer_custom_field_magnus_box_password}} -"
 17. Leave the "Run as" box as "System" and the "max Script Run Time" box as "10"
 18. Pull up the Github script for Create New User
-19. Copy or click the "raw" button and copy/paster the script entirely to the Script section of Syncro
+19. Copy or click the "raw" button and copy/paste the script entirely to the Script section of Syncro
 20. From within the script, modify the "User", "Password" section with the API user account info provided my Magnus Box
 21. Modify the "Server" section with the url of your Magnus Box server. Ex. app.magnusbox.com. Do not include the HTTP or www. 
 22. Do not modify anything below the line "# --- DO NOT MODIFY ANYTHING BELOW THIS LINE ---"
@@ -70,9 +70,33 @@ You will also need a dedicated Magnus Box API account setup for Syncro. You will
 
 <strong>Script Name</strong> - Delete User
 
-<strong>Usage</strong> Coming Soon
+<strong>Usage</strong> - This script is used to remove a user account and disable their login credential from the Syncro RMM Dashboard. <strong>WARNING: This will permanently remove the user and ALL DATA associated with the user's backups.</strong>
 
-<strong>Instructions</strong> Coming Soon
+<strong>Instructions</strong>
+
+1. Login to your Syncro portal
+2. Go to scripts
+3. Click on "New Script"
+4. Name the script "Magnus Box - Delete User Account" (or any other descriptive title)
+5. For the "File Type", select "PowerShell" from the dropdown menu
+6. For "Run as" and "Max Script Run Type", keep them as the default values ("System" and "10" respectively)
+7. Click on "Add Script Variable"
+8. Under "Variable Name -$", enter "mbu"
+9. Under "Variable Type", select "Platform"
+10. In the "Value" field, select "{{customer_custom_field_magnus_box_username}} -"
+11. Add a second variable:  Click "Add Script Variable"
+12. Under "Variable Name -$" name it "mbp"
+13. Under "Variable Type" select "Platform"
+14. The "Value" box should now appear.
+15. In the "Value" box, select "{{customer_custom_field_magnus_box_password}} -"
+16. Pull up the Github script for "Delete User"
+17. Copy or click the "raw" button and copy/paste the script entirely to the Script section of Syncro
+18. From within the script, modify the "User", "Password" section with the API user account info provided by Magnus Box
+19. Modify the "Server" section with the url of your Magnus Box server. Ex. app.magnusbox.com. Do not include the HTTP, www, or /'s. 
+20. Do not modify anything below the line "# --- DO NOT MODIFY ANYTHING BELOW THIS LINE ---"
+21. Click "Create Script"
+22. You can now run this script to delete user accounts on your Magnus Box server. Use as a LAST resort as this script removes ALL backup data for the selected users.
+
 
 <strong>Script Name</strong> -Silent Install
 
