@@ -66,7 +66,7 @@ You will also need a dedicated Magnus Box API account setup for Syncro. You will
 23. Click "Create Script"
 24. You can now run this script to create user accounts on your Magnus Box server.
 
-
+<br><br>
 
 <strong>Script Name</strong> - Delete User
 
@@ -97,6 +97,7 @@ You will also need a dedicated Magnus Box API account setup for Syncro. You will
 21. Click "Create Script"
 22. You can now run this script to delete user accounts on your Magnus Box server. Use as a LAST resort as this script removes ALL backup data for the selected users.
 
+<br><br>
 
 <strong>Script Name</strong> - Silent Install
 
@@ -128,6 +129,8 @@ You will also need a dedicated Magnus Box API account setup for Syncro. You will
 21. Click "Create Script"
 22. You can now run this script to install the backup software silently for each user. It will take approximately 60 seconds. After the install, you should be able to view the device and set up the Protected Items.
 
+<br><br>
+
 <strong>Script Name</strong> - Silent Uninstall
 
 <strong>Usage</strong> - Use this script to silently uninstall the backup software without interrupting the user
@@ -149,6 +152,8 @@ You will also need a dedicated Magnus Box API account setup for Syncro. You will
 12. You can now run this script to uninstall the backup software silently for each user. After uninstalling, make sure to <strong>delete the user account</strong>. You will continued to be billed unless the user is removed!
    - To remove a user, navigate to the web portal. Go to Accounts --> Users. Find and click the affected user. In the upper right corner, click Actions --> Delete to remove the user.
    - Contact Magnus Box for additionall support or if any questions arise
+
+<br><br>
 
 <strong>Script Name</strong> - Remove Icon
 
