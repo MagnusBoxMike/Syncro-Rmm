@@ -98,11 +98,35 @@ You will also need a dedicated Magnus Box API account setup for Syncro. You will
 22. You can now run this script to delete user accounts on your Magnus Box server. Use as a LAST resort as this script removes ALL backup data for the selected users.
 
 
-<strong>Script Name</strong> -Silent Install
+<strong>Script Name</strong> - Silent Install
 
-<strong>Usage</strong> Coming Soon
+<strong>Usage</strong> - This script will silently install the backup software on a user's computer.
 
-<strong>Instructions</strong> Coming Soon
+<strong>Instructions</strong>
+
+1. Login to your Syncro portal
+2. Go to scripts
+3. Click on "New Script"
+4. Name the script "Magnus Box - Silent Install" (or any other descriptive title)
+5. For the "File Type", select "PowerShell" from the dropdown menu
+6. For "Run as" and "Max Script Run Type", keep them as the default values ("System" and "10" respectively)
+7. Click on "Add Script Variable"
+8. Under "Variable Name -$", enter "mbu"
+9. Under "Variable Type", select "Platform"
+10. In the "Value" field, select "{{customer_custom_field_magnus_box_username}} -"
+11. Add a second variable:  Click "Add Script Variable"
+12. Under "Variable Name -$" name it "mbp"
+13. Under "Variable Type" select "Platform"
+14. The "Value" box should now appear.
+15. In the "Value" box, select "{{customer_custom_field_magnus_box_password}} -"
+16. Pull up the Github script for "Install User"
+17. Copy or click the "raw" button and copy/paste the entire script to the Script section of Syncro
+18. Within the script, modify the "$backupname" variable to reflect the exact spelling of your software's name (i.e. "Magnus Box Devops")
+   - Can be found from the Desktop Icon name or by contacting Magnus Box for support
+19. Within the script, modify the second variable, "$server", to match your web portal URL, excluding /'s and https:// (i.e. devops.magnusbox.com)
+20. Do not modify anything below the line "# --- DO NOT MODIFY ANYTHING BELOW THIS LINE ---"
+21. Click "Create Script"
+22. You can now run this script to install the backup software silently for each user. It will take approximately 60 seconds. After the install, you should be able to view the device and set up the Protected Items.
 
 <strong>Script Name</strong>- Silent Uninstall
 
