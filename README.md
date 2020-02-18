@@ -150,8 +150,23 @@ You will also need a dedicated Magnus Box API account setup for Syncro. You will
    - To remove a user, navigate to the web portal. Go to Accounts --> Users. Find and click the affected user. In the upper right corner, click Actions --> Delete to remove the user.
    - Contact Magnus Box for additionall support or if any questions arise
 
-<strong>Script Name</strong>- Remove Icon
+<strong>Script Name</strong> - Remove Icon
 
-<strong>Usage</strong> Coming Soon
+<strong>Usage</strong> Will remove the desktop icon for the user's computer, but it will not remove the backup software
 
-<strong>Instructions</strong> Coming Soon
+<strong>Instructions</strong>
+
+1. Login to your Syncro portal
+2. Go to scripts
+3. Click on "New Script"
+4. Name the script "Magnus Box - Remove Desktop Icon" (or any other descriptive title)
+5. For the "File Type", select "PowerShell" from the dropdown menu
+6. For "Run as" and "Max Script Run Type", keep them as the default values ("System" and "10" respectively)
+7. Pull up the Github script for "Remove Icon"
+8. Copy or click the "raw" button and copy/paste the entire script to the Script section of Syncro
+9. Within the script, modify the "$backupname" variable to reflect the exact spelling of your software's name (i.e. "Magnus Box Devops")
+   - Can be found from the Desktop Icon name or by contacting Magnus Box for support
+10. Do not modify anything below the line "# --- DO NOT MODIFY ANYTHING BELOW THIS LINE ---"
+11. Click "Create Script"
+12. You can now run this script to remove the icon from the user's desktop.
+
