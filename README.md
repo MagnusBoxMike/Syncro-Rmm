@@ -119,7 +119,7 @@ You will also need a dedicated Magnus Box API account setup for Syncro. You will
 13. Under "Variable Type" select "Platform"
 14. The "Value" box should now appear.
 15. In the "Value" box, select "{{customer_custom_field_magnus_box_password}} -"
-16. Pull up the Github script for "Install User"
+16. Pull up the Github script for "Silent Install"
 17. Copy or click the "raw" button and copy/paste the entire script to the Script section of Syncro
 18. Within the script, modify the "$backupname" variable to reflect the exact spelling of your software's name (i.e. "Magnus Box Devops")
    - Can be found from the Desktop Icon name or by contacting Magnus Box for support
@@ -128,11 +128,27 @@ You will also need a dedicated Magnus Box API account setup for Syncro. You will
 21. Click "Create Script"
 22. You can now run this script to install the backup software silently for each user. It will take approximately 60 seconds. After the install, you should be able to view the device and set up the Protected Items.
 
-<strong>Script Name</strong>- Silent Uninstall
+<strong>Script Name</strong> - Silent Uninstall
 
-<strong>Usage</strong> Coming Soon
+<strong>Usage</strong> - Use this script to silently uninstall the backup software without interrupting the user
 
-<strong>Instructions</strong> Coming Soon
+<strong>Instructions</strong>
+
+1. Login to your Syncro portal
+2. Go to scripts
+3. Click on "New Script"
+4. Name the script "Magnus Box - Silent Uninstall" (or any other descriptive title)
+5. For the "File Type", select "PowerShell" from the dropdown menu
+6. For "Run as" and "Max Script Run Type", keep them as the default values ("System" and "10" respectively)
+7. Pull up the Github script for "Silent Uninstall"
+8. Copy or click the "raw" button and copy/paste the entire script to the Script section of Syncro
+9. Within the script, modify the "$backupname" variable to reflect the exact spelling of your software's name (i.e. "Magnus Box Devops")
+   - Can be found from the Desktop Icon name or by contacting Magnus Box for support
+10. Do not modify anything below the line "# --- DO NOT MODIFY ANYTHING BELOW THIS LINE ---"
+11. Click "Create Script"
+12. You can now run this script to uninstall the backup software silently for each user. After uninstalling, make sure to <strong>delete the user account</strong>. You will continued to be billed unless the user is removed!
+   - To remove a user, navigate to the web portal. Go to Accounts --> Users. Find and click the affected user. In the upper right corner, click Actions --> Delete to remove the user.
+   - Contact Magnus Box for additionall support or if any questions arise
 
 <strong>Script Name</strong>- Remove Icon
 
