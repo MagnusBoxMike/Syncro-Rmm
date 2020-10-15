@@ -6,7 +6,18 @@ Import-Module $env:SyncroModule
 $username = "User"
 $password = "Password"
 $server= "Server"
+$vault = "US"
+# /\   "US" = United States Vault; "EU" = European Union Vault
+
 
 # --- DO NOT MODIFY ANYTHING BELOW THIS LINE ---
 
+# Create user
 Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/add-user" -UseBasicParsing -Method POST -Body @{Username="${username}"; AuthType="Password"; Password="${password}"; TargetUser=$mbu; TargetPassword=$mbp; StoreRecoveryCode="1"} | select Content
+
+# Request storage vault
+$vaultId = "bj2NYxeAXvUaUQRi6o2y9PEO9YBPtiOrQFkSLFOUSIo"
+If ($vault -eq "EU") {
+    $vaultId = "qHY4tSIVMN8hEQ6opXvdwZfr9Pt9n2XOK0gdRxLEqss"
+}
+Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/request-storage-vault" -UseBasicParsing -Method POST -Body @{Username="${username}"; AuthType="Password"; Password="${password}"; TargetUser=$mbu; StorageProvider="${vaultId}"} | select Content
