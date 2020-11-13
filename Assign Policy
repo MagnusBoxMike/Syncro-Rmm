@@ -1,0 +1,16 @@
+Import-Module $env:SyncroModule
+
+# --- EDIT SERVER INFO BELOW --- #
+# --- Need help? Email support@magnusbox.com --- #
+
+$username = "User"
+$password = "Password"
+$server = "Server"
+$policyID = ""
+# To find policyID, copy the end text from the web dashboard when viewing the policy
+
+# --- DO NOT MODIFY ANYTHING BELOW THIS LINE --- #
+
+$UserProfile = Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/get-user-profile" -UseBasicParsing -Method POST -Body @{Username="${username}"; AuthType="Password"; Password="${password}"; TargetUser=$mbu}
+$PolicyIndex = $UserProfile.IndexOf('PolicyID"') + 'PolicyID":"'.length
+
