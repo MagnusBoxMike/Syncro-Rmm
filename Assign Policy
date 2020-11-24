@@ -13,6 +13,8 @@ $policyID = ""
 
 # Get current user profile and find policyID index
 $UserProfile = Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/get-user-profile" -UseBasicParsing -Method POST -Body @{Username="${username}"; AuthType="Password"; Password="${password}"; TargetUser=$mbu}
+$UserProfile = $UserProfile.Content
+Write-Host $UserProfile
 $PolicyStartIndex = $UserProfile.IndexOf('PolicyID"') + 'PolicyID":"'.length
 $PolicyEndIndex = $UserProfile.IndexOf('"', $PolicyStartIndex)
 
@@ -22,4 +24,5 @@ $ProfileBack = $UserProfile.Substring($PolicyEndIndex, ($UserProfile.length - $P
 
 # Insert new policy ID and send to server
 $UserProfile = $ProfileFront + $policyID + $ProfileBack
-$Result = Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/set-user-profile" -UseBasicParsing -Method POST -Body @{Username="${username}"; AuthType="Password"; Password="${password}"; TargetUser=$mbu; ProfileData="${UserProfile}"} | select Content
+$Result = Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/set-user-profile" -UseBasicParsing -Method POST -Body @{Username="${username}"; AuthType="Password"; Password="${password}"; TargetUser=$mbu; ProfileData="${UserProfile}"}
+Write-Host $Result.Content
