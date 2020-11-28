@@ -16,7 +16,9 @@ $assignVault = $true
 # --- DO NOT MODIFY ANYTHING BELOW THIS LINE --- #
 
 # Create user
-Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/add-user" -UseBasicParsing -Method POST -Body @{Username="${username}"; AuthType="Password"; Password="${password}"; TargetUser=$mbu; TargetPassword=$mbp; StoreRecoveryCode="1"} | select Content
+$UserResult = Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/add-user" -UseBasicParsing -Method POST -Body @{Username="${username}"; AuthType="Password"; Password="${password}"; TargetUser=$mbu; TargetPassword=$mbp; StoreRecoveryCode="1"}
+$UserResult = $UserResult.Content
+Write-Host $UserResult
 
 
 # NOTE: Local variables:  "${varName}"    Syncro variables: $globalVar
@@ -46,7 +48,6 @@ if($assignPolicy -eq $true) {
     # Get current user profile and find policyID index
     $UserProfile = Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/get-user-profile" -UseBasicParsing -Method POST -Body @{Username="${username}"; AuthType="Password"; Password="${password}"; TargetUser=$mbu}
     $UserProfile = $UserProfile.Content
-    Write-Host $UserProfile
     $PolicyStartIndex = $UserProfile.IndexOf('PolicyID"') + 'PolicyID":"'.length
     $PolicyEndIndex = $UserProfile.IndexOf('"', $PolicyStartIndex)
 
@@ -57,7 +58,15 @@ if($assignPolicy -eq $true) {
     # Insert new policy ID and send to server
     $UserProfile = $ProfileFront + $policyID + $ProfileBack
     $PolicyResult = Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/set-user-profile" -UseBasicParsing -Method POST -Body @{Username="${username}"; AuthType="Password"; Password="${password}"; TargetUser=$mbu; ProfileData="${UserProfile}"}
-    $PolicyResult = PolicyResult.Content
+    $PolicyResult = $PolicyResult.Content
+    
+    # Let the user know if it was a success
+    if($PolicyResult.IndexOf('200') -ne -1) {
+        Write-Host "Default policy added successfully"
+    } else {
+        Write-Host "WARNING: Policy was not added to user! Response below:"
+        Write-Host $PolicyResult
+    }
 }
 
 # Vault selection logic
@@ -73,6 +82,13 @@ if($assignVault -eq $true) {
     # Assign this vault to the user
     $VaultResult = Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/request-storage-vault" -UseBasicParsing -Method POST -Body @{Username="${username}"; AuthType="Password"; Password="${password}"; TargetUser=$mbu; StorageProvider="${VaultId}"}
     $VaultResult = $VaultResult.Content
+    
+    # Log the status
+    if($VaultResult.IndexOf('200') -ne -1) {
+        Write-Host "Storage vault was created for the user."
+    } else {
+        Write-Host "WARNING: Vault unable to be created! Response below:"
+        Write-Host $VaultResult
+    }
 }
-
 
