@@ -1,19 +1,19 @@
 Import-Module $env:SyncroModule
 
-# --- EDIT SERVER INFO BELOW ---
-# --- Need help? Email support@magnusbox.com ---
+# --- EDIT SERVER INFO BELOW --- #
+# --- Need help? Email support@magnusbox.com --- #
 
 $username = "User"
 $password = "Password"
 $server= "Server"
 
-# --- Post-Create Processing ---
-$assignPolicy = $true;
-$assignVault = $true;
+# --- Post-Create Processing --- #
+$assignPolicy = $true
+$assignVault = $true
 
 
 
-# --- DO NOT MODIFY ANYTHING BELOW THIS LINE ---
+# --- DO NOT MODIFY ANYTHING BELOW THIS LINE --- #
 
 # Create user
 Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/add-user" -UseBasicParsing -Method POST -Body @{Username="${username}"; AuthType="Password"; Password="${password}"; TargetUser=$mbu; TargetPassword=$mbp; StoreRecoveryCode="1"} | select Content
@@ -56,7 +56,23 @@ if($assignPolicy -eq $true) {
 
     # Insert new policy ID and send to server
     $UserProfile = $ProfileFront + $policyID + $ProfileBack
-    $Result = Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/set-user-profile" -UseBasicParsing -Method POST -Body @{Username="${username}"; AuthType="Password"; Password="${password}"; TargetUser=$mbu; ProfileData="${UserProfile}"}
-    
+    $PolicyResult = Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/set-user-profile" -UseBasicParsing -Method POST -Body @{Username="${username}"; AuthType="Password"; Password="${password}"; TargetUser=$mbu; ProfileData="${UserProfile}"}
+    $PolicyResult = PolicyResult.Content
 }
+
+# Vault selection logic
+if($assignVault -eq $true) {
+    
+    # Grab the ID of the first (and likely only) vault
+    $VaultList = Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/request-storage-vault-providers" -UseBasicParsing -Method POST -Body @{Username="${username}"; AuthType="Password"; Password="${password}"}
+    $VaultList = $VaultList.Content
+    $VaultIdStart = $VaultList.IndexOf('{"') + '{"'.length
+    $VaultIdEnd = $VaultList.IndexOf('":"', $VaultIdStart)
+    $VaultId = $VaultList.Substring($VaultIdStart, ($VaultIdEnd - $VaultIdStart))
+    
+    # Assign this vault to the user
+    $VaultResult = Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/request-storage-vault" -UseBasicParsing -Method POST -Body @{Username="${username}"; AuthType="Password"; Password="${password}"; TargetUser=$mbu; StorageProvider="${VaultId}"}
+    $VaultResult = $VaultResult.Content
+}
+
 
