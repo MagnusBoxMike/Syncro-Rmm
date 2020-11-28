@@ -28,7 +28,7 @@ These scripts require the use of the custom customer fields in Syncro.
 1. Click on Customers
 2. Select a customer
 3. Under custom fields, click edit
-4. Inpute a secure username and password in the "Magnus Box Password" & "Magnus Box Username" fields 
+4. Input a secure username and password in the "Magnus Box Password" & "Magnus Box Username" fields 
 5. Repeat this process for every customer that you would like to add to Magnus Box. 
 
 You will also need a dedicated Magnus Box API account setup for Syncro. You will use this to run the scripts. To have a dedicated API account setup, please email support@magnusbox.com and request a Syncro API user account.
