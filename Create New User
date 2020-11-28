@@ -25,7 +25,7 @@ Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/add-user" -UseBas
 if($assignPolicy -eq $true) {
     
     # Get a list of all of the policies
-    $PolicyList = Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/list-full" -UseBasicParsing -Method POST -Body @{Username="${username}"; AuthType="Password"; Password="${password}"}
+    $PolicyList = Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/policies/list-full" -UseBasicParsing -Method POST -Body @{Username="${username}"; AuthType="Password"; Password="${password}"}
     $PolicyList = $PolicyList.Content
     $DefaultIndex = $PolicyList.IndexOf('DefaultUserPolicy":true')
     if($DefaultIndex -eq -1) {
