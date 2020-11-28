@@ -8,8 +8,8 @@ $password = "Password"
 $server= "Server"
 
 # --- Post-Create Processing ---
-$policyID = "";
-$chooseStorageVault = true;
+$assignPolicy = $true;
+$assignVault = $true;
 
 
 
@@ -21,8 +21,42 @@ Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/add-user" -UseBas
 
 # NOTE: Local variables:  "${varName}"    Syncro variables: $globalVar
 
-# Choose policy (if given above)
-if($policyID.length -gt 0) {
-# TODO: get user profile, set the policy ID, and then set user profile
+# Choose policy (if they want it)
+if($assignPolicy -eq $true) {
+    
+    # Get a list of all of the policies
+    $PolicyList = Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/list-full" -UseBasicParsing -Method POST -Body @{Username="${username}"; AuthType="Password"; Password="${password}"}
+    $PolicyList = $PolicyList.Content
+    $DefaultIndex = $PolicyList.IndexOf('DefaultUserPolicy":true')
+    if($DefaultIndex -eq -1) {
+        Write-Host "No default policy specified. Unable to set"
+        break
+    }
+    
+    # Find the ID of the default policy by reversing string for backwards substring
+    $PolicyList = $PolicyList.Substring(0, $DefaultIndex)
+    $ReversedList = $PolicyList.ToCharArray()
+    [array]::Reverse($ReversedList)
+    $ReversedList = -join($ReversedList)
+    $IdStart = $ReversedList.IndexOf('cseD"{:"') + 'cseD"{:"'.length   # Search for {"Des (but backwards)
+    $IdEnd = $ReversedList.IndexOf('"', $IdStart)
+    # Subtract from length to translate from reversed list to proper order
+    $policyID = $PolicyList.Substring(($PolicyList.length - $IdEnd), ($IdEnd - $IdStart))
+    
+    # Get current user profile and find policyID index
+    $UserProfile = Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/get-user-profile" -UseBasicParsing -Method POST -Body @{Username="${username}"; AuthType="Password"; Password="${password}"; TargetUser=$mbu}
+    $UserProfile = $UserProfile.Content
+    Write-Host $UserProfile
+    $PolicyStartIndex = $UserProfile.IndexOf('PolicyID"') + 'PolicyID":"'.length
+    $PolicyEndIndex = $UserProfile.IndexOf('"', $PolicyStartIndex)
+
+    # Splice the profile into a beginning and end part
+    $ProfileFront = $UserProfile.Substring(0, $PolicyStartIndex)
+    $ProfileBack = $UserProfile.Substring($PolicyEndIndex, ($UserProfile.length - $PolicyEndIndex))
+
+    # Insert new policy ID and send to server
+    $UserProfile = $ProfileFront + $policyID + $ProfileBack
+    $Result = Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/set-user-profile" -UseBasicParsing -Method POST -Body @{Username="${username}"; AuthType="Password"; Password="${password}"; TargetUser=$mbu; ProfileData="${UserProfile}"}
+    
 }
 
