@@ -6,7 +6,7 @@ Before implementing these scripts, please open a ticket by emailing support@magn
 
 As always, never run a script without understanding how it works. You take full responsibility for running these scripts on your clients endpoints.
 
-Interested in Magnus Box. Visit www.magnusbox.com for more information.
+Interested in Magnus Box? Visit www.magnusbox.com for more information.
 
 # Setting up in Syncro
 
@@ -29,6 +29,7 @@ These scripts require the use of the custom customer fields in Syncro.
 2. Select a customer
 3. Under custom fields, click edit
 4. Input a secure username and password in the "Magnus Box Password" & "Magnus Box Username" fields 
+  -  <b>Note</b>: The password for the user can NOT contain special characters. Otherwise, it is unable to remotely log in to Magnus Box and will require you to manually log in the user.
 5. Repeat this process for every customer that you would like to add to Magnus Box. 
 
 You will also need a dedicated Magnus Box API account setup for Syncro. You will use this to run the scripts. To have a dedicated API account setup, please email support@magnusbox.com and request a Syncro API user account.
