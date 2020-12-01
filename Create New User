@@ -40,7 +40,8 @@ if($assignPolicy -eq $true) {
     $ReversedList = $PolicyList.ToCharArray()
     [array]::Reverse($ReversedList)
     $ReversedList = -join($ReversedList)
-    $IdStart = $ReversedList.IndexOf('cseD"{:"') + 'cseD"{:"'.length   # Search for {"Des (but backwards)
+    $IdStart = $ReversedList.IndexOf('nagrO') + 'nagrO'.length   # Search for Organ (short for Organization, but backwards)
+    $IdStart = $ReversedList.IndexOf('{:"', $IdStart) + '{:"'.length
     $IdEnd = $ReversedList.IndexOf('"', $IdStart)
     # Subtract from length to translate from reversed list to proper order
     $policyID = $PolicyList.Substring(($PolicyList.length - $IdEnd), ($IdEnd - $IdStart))
