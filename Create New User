@@ -96,7 +96,7 @@ if($AssignVault -eq $true) {
     
     # Log the status
     if($VaultResult.IndexOf('200') -ne -1) {
-        Write-Host "Storage vault was created for the user."
+        Write-Host "Storage vault was created for the user"
     } else {
         Write-Host "WARNING: Vault unable to be created! Response below:"
         Write-Host $VaultResult
