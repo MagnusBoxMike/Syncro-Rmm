@@ -38,7 +38,7 @@ You will also need a dedicated Magnus Box API account setup for Syncro. You will
 
 <strong>Script Name</strong> - Create New User
 
-<strong>Usage</strong> - This script is used to create a new client backup account on your Magnus Box server from within the Syncro RMM dashboard.
+<strong>Usage</strong> - This script is used to create a new client backup account on your Magnus Box server from within the Syncro RMM dashboard. It also has the ability to assign a storage vault and policy if desired. The policy must be set as the default within the web dashboard.
 
 <strong>Instructions</strong>
 
@@ -62,10 +62,11 @@ You will also need a dedicated Magnus Box API account setup for Syncro. You will
 18. Pull up the Github script for Create New User
 19. Copy or click the "raw" button and copy/paste the script entirely to the Script section of Syncro
 20. From within the script, modify the "User", "Password" section with the API user account info provided my Magnus Box
-21. Modify the "Server" section with the url of your Magnus Box server. Ex. app.magnusbox.com. Do not include the HTTP or www. 
-22. Do not modify anything below the line "# --- DO NOT MODIFY ANYTHING BELOW THIS LINE ---"
-23. Click "Create Script"
-24. You can now run this script to create user accounts on your Magnus Box server.
+21. Set the "$AssignPolicy" and "$AssignVault" to "$false" to disable auto-selecting of a vault and policy (they are set to $true by default)
+22. Modify the "Server" section with the url of your Magnus Box server. Ex. app.magnusbox.com. Do not include the HTTP or www
+23. Do not modify anything below the line "# --- DO NOT MODIFY ANYTHING BELOW THIS LINE ---"
+24. Click "Create Script"
+25. You can now run this script to create user accounts on your Magnus Box server.
 
 <br><br>
 
@@ -83,7 +84,7 @@ You will also need a dedicated Magnus Box API account setup for Syncro. You will
 6. For "Run as" and "Max Script Run Type", keep them as the default values ("System" and "10" respectively)
 7. Click on "Add Script Variable"
 8. Under "Variable Name -$", enter "mbu"
-9. Under "Variable Type", select "Platform"
+9. Under "Variable Type", select "Runtime"
 10. In the "Value" field, select "{{customer_custom_field_magnus_box_username}} -"
 11. Add a second variable:  Click "Add Script Variable"
 12. Under "Variable Name -$" name it "mbp"
@@ -96,7 +97,7 @@ You will also need a dedicated Magnus Box API account setup for Syncro. You will
 19. Modify the "Server" section with the url of your Magnus Box server. Ex. app.magnusbox.com. Do not include the HTTP, www, or /'s. 
 20. Do not modify anything below the line "# --- DO NOT MODIFY ANYTHING BELOW THIS LINE ---"
 21. Click "Create Script"
-22. You can now run this script to delete user accounts on your Magnus Box server. Use as a LAST resort as this script removes ALL backup data for the selected users.
+22. You can now run this script to delete user accounts on your Magnus Box server. Use as a LAST resort as this script removes ALL backup data for the selected users. You will be required to enter in the username of the user you want to delete as an added safety precaution.
 
 <br><br>
 
