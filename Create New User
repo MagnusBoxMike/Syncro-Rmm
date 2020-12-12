@@ -8,8 +8,8 @@ $password = "Password"
 $server= "Server"
 
 # --- Post-Create Processing --- #
-$assignPolicy = $true
-$assignVault = $true
+$AssignPolicy = $true
+$AssignVault = $true
 
 
 
@@ -18,60 +18,70 @@ $assignVault = $true
 # Create user
 $UserResult = Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/add-user" -UseBasicParsing -Method POST -Body @{Username="${username}"; AuthType="Password"; Password="${password}"; TargetUser=$mbu; TargetPassword=$mbp; StoreRecoveryCode="1"}
 $UserResult = $UserResult.Content
-Write-Host $UserResult
+# Log the status
+if($UserResult.IndexOf('200') -ne -1) {
+    Write-Host "Added user successfully"
+} else {
+    Write-Host "WARNING: Unable to add user! Response below:"
+    Write-Host $UserResult
+    Exit 2
+}
 
-
-# NOTE: Local variables:  "${varName}"    Syncro variables: $globalVar
+# Used to signal status of script
+$WasError = $false
 
 # Choose policy (if they want it)
-if($assignPolicy -eq $true) {
+if($AssignPolicy -eq $true) {
     
-    # Get a list of all of the policies
+    # Get a list of all of the policies and convert to PSObject
     $PolicyList = Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/policies/list-full" -UseBasicParsing -Method POST -Body @{Username="${username}"; AuthType="Password"; Password="${password}"}
-    $PolicyList = $PolicyList.Content
-    $DefaultIndex = $PolicyList.IndexOf('DefaultUserPolicy":true')
-    if($DefaultIndex -eq -1) {
+    $PolicyList = $PolicyList | ConvertFrom-Json
+    
+    # Loop through each policy to check if it's default
+    $PolicyID = ""
+    $PolicyList.PSObject.Properties | ForEach-Object {
+        
+        $IsDefault = $_.Value.PSObject.Properties["DefaultUserPolicy"].Value
+        if($IsDefault -eq $true) {
+            $PolicyID = $_.Name
+        }
+    }
+    
+    # Log the result if there wasn't a default set
+    if($PolicyID.length -lt 5) {
         Write-Host "No default policy specified. Unable to set"
-        break
-    }
-    
-    # Find the ID of the default policy by reversing string for backwards substring
-    $PolicyList = $PolicyList.Substring(0, $DefaultIndex)
-    $ReversedList = $PolicyList.ToCharArray()
-    [array]::Reverse($ReversedList)
-    $ReversedList = -join($ReversedList)
-    $IdStart = $ReversedList.IndexOf('nagrO') + 'nagrO'.length   # Search for Organ (short for Organization, but backwards)
-    $IdStart = $ReversedList.IndexOf('{:"', $IdStart) + '{:"'.length
-    $IdEnd = $ReversedList.IndexOf('"', $IdStart)
-    # Subtract from length to translate from reversed list to proper order
-    $policyID = $PolicyList.Substring(($PolicyList.length - $IdEnd), ($IdEnd - $IdStart))
-    
-    # Get current user profile and find policyID index
-    $UserProfile = Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/get-user-profile" -UseBasicParsing -Method POST -Body @{Username="${username}"; AuthType="Password"; Password="${password}"; TargetUser=$mbu}
-    $UserProfile = $UserProfile.Content
-    $PolicyStartIndex = $UserProfile.IndexOf('PolicyID"') + 'PolicyID":"'.length
-    $PolicyEndIndex = $UserProfile.IndexOf('"', $PolicyStartIndex)
-
-    # Splice the profile into a beginning and end part
-    $ProfileFront = $UserProfile.Substring(0, $PolicyStartIndex)
-    $ProfileBack = $UserProfile.Substring($PolicyEndIndex, ($UserProfile.length - $PolicyEndIndex))
-
-    # Insert new policy ID and send to server
-    $UserProfile = $ProfileFront + $policyID + $ProfileBack
-    $PolicyResult = Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/set-user-profile" -UseBasicParsing -Method POST -Body @{Username="${username}"; AuthType="Password"; Password="${password}"; TargetUser=$mbu; ProfileData="${UserProfile}"}
-    $PolicyResult = $PolicyResult.Content
-    
-    # Let the user know if it was a success
-    if($PolicyResult.IndexOf('200') -ne -1) {
-        Write-Host "Default policy added successfully"
+        $WasError = $true
+        
     } else {
-        Write-Host "WARNING: Policy was not added to user! Response below:"
-        Write-Host $PolicyResult
+        # Get current user profile and find policyID index
+        $UserProfile = Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/get-user-profile" -UseBasicParsing -Method POST -Body @{Username="${username}"; AuthType="Password"; Password="${password}"; TargetUser=$mbu}
+        $UserProfile = $UserProfile.Content
+        $PolicyStartIndex = $UserProfile.IndexOf('PolicyID"') + 'PolicyID":"'.length
+        $PolicyEndIndex = $UserProfile.IndexOf('"', $PolicyStartIndex)
+    
+        # Splice the profile into a beginning and end part
+        $ProfileFront = $UserProfile.Substring(0, $PolicyStartIndex)
+        $ProfileBack = $UserProfile.Substring($PolicyEndIndex, ($UserProfile.length - $PolicyEndIndex))
+    
+        # Insert new policy ID and send to server
+        $UserProfile = $ProfileFront + $PolicyID + $ProfileBack
+        $PolicyResult = Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/set-user-profile" -UseBasicParsing -Method POST -Body @{Username="${username}"; AuthType="Password"; Password="${password}"; TargetUser=$mbu; ProfileData="${UserProfile}"}
+        $PolicyResult = $PolicyResult.Content
+        
+        # Let the user know if it was a success
+        if($PolicyResult.IndexOf('200') -ne -1) {
+            Write-Host "Default policy added successfully"
+        } else {
+            Write-Host "WARNING: Policy was not added to user! Response below:"
+            Write-Host $PolicyResult
+            $WasError = $true
+        }
     }
+    
 }
 
 # Vault selection logic
-if($assignVault -eq $true) {
+if($AssignVault -eq $true) {
     
     # Grab the ID of the first (and likely only) vault
     $VaultList = Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/request-storage-vault-providers" -UseBasicParsing -Method POST -Body @{Username="${username}"; AuthType="Password"; Password="${password}"}
@@ -90,6 +100,12 @@ if($assignVault -eq $true) {
     } else {
         Write-Host "WARNING: Vault unable to be created! Response below:"
         Write-Host $VaultResult
+        $WasError = $true
     }
+}
+
+# Exit status 1 = Warning
+if($WasError -eq $true) {
+    Exit 1
 }
 
