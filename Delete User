@@ -1,4 +1,5 @@
 Import-Module $env:SyncroModule
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 # --- EDIT SERVER INFO BELOW ---
 # --- Need help? Email support@magnusbox.com ---
