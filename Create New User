@@ -1,4 +1,5 @@
 Import-Module $env:SyncroModule
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 # --- EDIT SERVER INFO BELOW --- #
 # --- Need help? Email support@magnusbox.com --- #
@@ -22,7 +23,7 @@ $UserResult = $UserResult.Content
 if($UserResult.IndexOf('200') -ne -1) {
     Write-Host "Added user successfully"
 } else {
-    Write-Host "WARNING: Unable to add user! Response below:"
+    Write-Host "FAILURE: Unable to add user! Response below:"
     Write-Host $UserResult
     Exit 2
 }
@@ -49,7 +50,7 @@ if($AssignPolicy -eq $true) {
     
     # Log the result if there wasn't a default set
     if($PolicyID.length -lt 5) {
-        Write-Host "No default policy specified. Unable to set"
+        Write-Host "WARNING: No default policy specified. Unable to set"
         $WasError = $true
         
     } else {
