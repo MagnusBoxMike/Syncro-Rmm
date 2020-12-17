@@ -15,6 +15,8 @@ $AssignVault = $true
 
 
 # --- DO NOT MODIFY ANYTHING BELOW THIS LINE --- #
+$version = $PSVersionTable.PSVersion
+Write-Host "Powershell Version: ${version}"
 
 # Create user
 $UserResult = Invoke-Webrequest -Uri "https://${server}:${port}/api/v1/admin/add-user" -UseBasicParsing -Method POST -Body @{Username="${username}"; AuthType="Password"; Password="${password}"; TargetUser=$mbu; TargetPassword=$mbp; StoreRecoveryCode="1"}
