@@ -4,7 +4,8 @@ Import-Module $env:SyncroModule
 # --- Need help? Email support@magnusbox.com ---
 
 $backupname = "Backup Name"
+$driveid = "C"
 
 # --- DO NOT MODIFY ANYTHING BELOW THIS LINE ---
 
-Remove-Item "C:\Users\*\Desktop\$backupname.lnk"
+Remove-Item "${driveid}:\Users\*\Desktop\$backupname.lnk"
