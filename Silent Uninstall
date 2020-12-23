@@ -4,7 +4,9 @@ Import-Module $env:SyncroModule
 # --- Need help? Email support@magnusbox.com ---
 
 $backupname = "Backup Name"
+$driveid = "C"
+$dircheck = "${driveid}:\Program Files" + "\$backupname"
 
 # --- DO NOT MODIFY ANYTHING BELOW THIS LINE ---
 
-Start-Process "C:\Program Files\$backupname\Uninstall.exe" -ArgumentList "/S"
+Start-Process "${dircheck}\Uninstall.exe" -ArgumentList "/S"
