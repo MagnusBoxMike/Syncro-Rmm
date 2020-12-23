@@ -4,28 +4,34 @@ Import-Module $env:SyncroModule
 # --- EDIT SERVER INFO BELOW ---
 # --- Need help? Email support@magnusbox.com ---
 
-$backupname = "Backup Name"
-$server = "Server URL"
+$backupname = "Magnus Box DevOps"
+$server = "devops.magnusbox.com"
+
+$mbu = $mbu
+$mbp = $mbp
+$driveid = "C"
+$mbtemploc = "${driveid}:\Temp"
+$dircheck = "${driveid}:\Program Files" + "\$backupname"
 
 # --- DO NOT MODIFY ANYTHING BELOW THIS LINE ---
 
 # Check to see if MagnusBox is installed already
-if (-Not (Test-Path "C:\Program Files\$backupname")) { 
+if (-Not (Test-Path $dircheck)) { 
 
 # Creates Temp Directory if not already created
-if (-Not (Test-Path "C:\Temp")) { New-Item -ItemType dir "C:\Temp" }
+if (-Not (Test-Path $mbtemploc)) { New-Item -ItemType dir $mbtemploc }
 
 # Downloads installer 
-Invoke-WebRequest "https://${server}/dl/6" -OutFile "c:\temp\install_backup.exe"
+Invoke-WebRequest "https://${server}/dl/6" -OutFile "${mbtemploc}\install_backup.exe"
 
 # Runs installer from Platform Variable
-Start-Process -NoNewWindow -FilePath "c:\temp\install_backup.exe" -ArgumentList "/CONFIGURE=${mbu}:${mbp}"
+Start-Process -NoNewWindow -FilePath "${mbtemploc}\install_backup.exe" -ArgumentList "/CONFIGURE=${mbu}:${mbp}"
 
 # Pause the script for 60 seconds to allow the software to install
 Start-Sleep -s 60
 
 # Remove the icon from the desktop
-Remove-Item "C:\Users\*\Desktop\$backupname.lnk"
+Remove-Item "${driveid}:\Users\*\Desktop\$backupname.lnk"
 Write-Host "Backup Software successfully installed."
 
 } else {
