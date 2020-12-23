@@ -10,6 +10,9 @@ $server = "Server"
 $policyID = ""
 # To find policyID, copy the end text from the web dashboard when viewing the policy
 
+$mbu = $mbu
+$mbp = $mbp
+
 # --- DO NOT MODIFY ANYTHING BELOW THIS LINE --- #
 
 # Get current user profile and find policyID index
