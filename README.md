@@ -8,6 +8,8 @@ As always, never run a script without understanding how it works. You take full 
 
 Interested in Magnus Box? Visit www.magnusbox.com for more information.
 
+Looking for Datto scripts? Check out our separate GitHub repository <a href="https://github.com/MagnusBoxMike/Datto">here</a>!
+
 # Setting up in Syncro
 
 These scripts require the use of the custom customer fields in Syncro. 
