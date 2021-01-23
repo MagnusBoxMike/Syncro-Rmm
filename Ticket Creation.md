@@ -13,7 +13,7 @@ belong to their respective owner(s) **
 <h2>Setup</h2>
 
 1. Download script from <a href="https://github.com/wellssd/comet-reporter">https://github.com/wellssd/comet-reporter</a>
-1. Create custom asset field in Syncro titled "Comet Device ID" enter the device ID in this box. (Note: it needs to be the device ID and not the name)
+1. Create custom asset field in Syncro titled "Comet Device ID" enter the device ID in this box. (Note: it needs to be the device ID and not the name). You can find it on <a href="https://drive.google.com/file/d/1cW6JRcM9ZA9iJtdAyuWMdtKWhuZXF7Pn/view?usp=sharing">this screenshot</a>.
 1. Create new API key in Syncro. (Err on the side of more permissions since lesser permissions may cause issues. Exact requirements may be provided at a later date)
 1. Edit script line #312 and fix the following:<br>
 &nbsp; &nbsp;
