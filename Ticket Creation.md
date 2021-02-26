@@ -10,6 +10,11 @@ belong to their respective owner(s) **
 
 <hr>
 
+<h2>Moved</h2>
+The ticket creation and active monitoring scripts have been moved to a <a href="https://github.com/MagnusBoxMike/General-Scripts">New Repository, linked here</a>. The below instructions have since been deprecated and will no longer be supported.
+
+<br><br><hr>
+
 <h2>Setup</h2>
 
 1. Download script from <a href="https://github.com/wellssd/comet-reporter">https://github.com/wellssd/comet-reporter</a>
