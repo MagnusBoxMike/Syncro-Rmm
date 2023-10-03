@@ -22,7 +22,7 @@ if (-Not (Test-Path $dircheck)) {
 if (-Not (Test-Path $mbtemploc)) { New-Item -ItemType dir $mbtemploc }
 
 # Downloads installer 
-Invoke-WebRequest "https://${server}/dl/6" -OutFile "${mbtemploc}\install_backup.exe"
+Invoke-WebRequest "https://${server}/dl/2" -OutFile "${mbtemploc}\install_backup.exe"
 
 # Runs installer from Platform Variable
 Start-Process -NoNewWindow -FilePath "${mbtemploc}\install_backup.exe" -ArgumentList "/CONFIGURE=${mbu}:${mbp}"
